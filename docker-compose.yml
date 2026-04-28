@@ -1,0 +1,13 @@
+services:
+  whale-shadow:
+    build: .
+    ports:
+      - "8000:8000"
+    environment:
+      - POLL_SECONDS=30
+      - FLOWS_INTERVAL_SECONDS=1800
+      - TRADING_HOURS_ONLY=1
+      - TZ=Asia/Kolkata
+    volumes:
+      - ./data:/code/data
+    restart: unless-stopped

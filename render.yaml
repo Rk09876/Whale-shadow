@@ -1,0 +1,25 @@
+services:
+  - type: web
+    name: whale-shadow
+    runtime: docker
+    plan: free            # works on free tier; upgrade if you want zero cold starts
+    region: singapore     # closest to NSE/BSE for lower latency
+    branch: main
+    dockerfilePath: ./Dockerfile
+    healthCheckPath: /api/health
+    autoDeploy: true
+    disk:
+      name: whale-data
+      mountPath: /code/data
+      sizeGB: 1
+    envVars:
+      - key: POLL_SECONDS
+        value: "30"
+      - key: FLOWS_INTERVAL_SECONDS
+        value: "1800"
+      - key: SNAPSHOTS_KEEP
+        value: "500"
+      - key: TRADING_HOURS_ONLY
+        value: "1"
+      - key: TZ
+        value: "Asia/Kolkata"
